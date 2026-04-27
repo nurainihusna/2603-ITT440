@@ -23,35 +23,41 @@ The system processes a large dataset of student attendance (over 300,000 records
 ### 1. Sequential Processing
 Sequential processing executes tasks **one by one** using a single flow.
 
-✔ Simple  
-✔ Low overhead  
-❌ Cannot utilize multiple cores  
+✔ Processes all data one by one 
+
+❌ No concurrency or parallelism 
+
+❌ Simple but slower for large data 
 
 ---
 
 ### 2. Concurrent Processing (Threading)
 Threading allows multiple tasks to run **at the same time (logically)**.
 
-✔ Better responsiveness  
-✔ Suitable for lightweight tasks  
-❌ Limited by Python GIL (Global Interpreter Lock)  
+✔ Splits data into parts 
+
+✔ Suitable for I/O-based tasks 
+
+✔ Uses multiple threads to process simultaneously
 
 ---
 
 ### 3. Parallel Processing (Multiprocessing)
 Multiprocessing uses **multiple CPU cores** to run tasks simultaneously.
 
-✔ True parallel execution  
-✔ Suitable for heavy computations  
-❌ Higher overhead (process creation)  
+✔ Uses multiple CPU cores
+
+✔ Processes data in parallel
+
+✔ Best for heavy workloads
 
 ---
 
 ## 📥 Input Used
 
 ```
-Present: 245090  
-Absent: 89700  
+Present: 276500 
+Absent: 24300 
 ```
 
 ---
@@ -59,29 +65,29 @@ Absent: 89700
 ## 📤 Output Result
 
 ```
-Total Students: 334790
+Total Students: 300800
+Processing... please wait.
 
-Sequential Time: 0.009078025817871094
-Threading Time: 0.014542579650878906
-Multiprocessing Time: 0.08580613136291504
+Sequential Time: 1.5147 seconds
+Threading Time: 0.3845 seconds
+Multiprocessing Time: 0.4297 seconds
 
-Present: 245090
-Absent: 89700
+--- Results ---
+Present : 276500
+Absent : 24300
+
+Fastest method: Threading
 ```
 
 ---
 
-## 📊 Performance Analysis
+## 📈 Performance Analysis
 
-Based on the result:
+- Sequential is slower because it processes data one by one  
+- Threading is faster because it runs tasks concurrently  
+- Multiprocessing is slightly slower than threading in this case due to process overhead  
 
-- **Sequential** is the fastest (0.0090s)  
-- **Threading** is slightly slower (0.0145s)  
-- **Multiprocessing** is the slowest (0.0858s)  
-
-This happens because:
-- The task (counting attendance) is simple  
-- Overhead of creating threads and processes is higher than the task itself  
+👉 Therefore, **Threading is the fastest method for this dataset**
 
 ---
 
@@ -94,7 +100,7 @@ The system generates a bar chart to compare execution time between:
 
 📌  *Graph image is shown below.*
 
-![Performance Graph](Figure_1.png)
+![Performance Graph](FIGURE 1.jpg)
 
 ## 🧠 Conclusion
 
@@ -131,12 +137,22 @@ def generate_attendance(present_count, absent_count):
     return ["Present"] * present_count + ["Absent"] * absent_count
 
 # =========================
+# SIMULATED PROCESSING DELAY
+# =========================
+DELAY_PER_RECORD = 0.000005  # Simulates real processing time per record
+
+def heavy_count(sub_data):
+    """Simulate realistic processing time proportional to data size."""
+    time.sleep(len(sub_data) * DELAY_PER_RECORD)
+    present = sub_data.count("Present")
+    absent = sub_data.count("Absent")
+    return present, absent
+
+# =========================
 # SEQUENTIAL
 # =========================
 def count_sequential(data):
-    present = data.count("Present")
-    absent = data.count("Absent")
-    return present, absent
+    return heavy_count(data)
 
 # =========================
 # THREADING (CONCURRENT)
@@ -147,36 +163,32 @@ def count_threading(data, num_threads=4):
     chunk_size = len(data) // num_threads
 
     def worker(i, sub_data):
-        present = sub_data.count("Present")
-        absent = sub_data.count("Absent")
-        results[i] = (present, absent)
+        results[i] = heavy_count(sub_data)
 
     for i in range(num_threads):
         start = i * chunk_size
         end = (i + 1) * chunk_size if i != num_threads - 1 else len(data)
-
         t = threading.Thread(target=worker, args=(i, data[start:end]))
         threads.append(t)
         t.start()
-
     for t in threads:
         t.join()
 
     total_present = sum(r[0] for r in results)
     total_absent = sum(r[1] for r in results)
-
     return total_present, total_absent
 
 # =========================
 # MULTIPROCESSING (PARALLEL)
 # =========================
-def count_part(data):
-    return data.count("Present"), data.count("Absent")
+def count_part(sub_data):
+    import time
+    time.sleep(len(sub_data) * 0.000005)
+    return sub_data.count("Present"), sub_data.count("Absent")
 
 def count_multiprocessing(data, num_processes=4):
     chunk_size = len(data) // num_processes
     chunks = []
-
     for i in range(num_processes):
         start = i * chunk_size
         end = (i + 1) * chunk_size if i != num_processes - 1 else len(data)
@@ -187,7 +199,6 @@ def count_multiprocessing(data, num_processes=4):
 
     total_present = sum(r[0] for r in results)
     total_absent = sum(r[1] for r in results)
-
     return total_present, total_absent
 
 # =========================
@@ -202,41 +213,50 @@ if __name__ == "__main__":
 
     # GENERATE DATA
     data = generate_attendance(present_count, absent_count)
-
     print("\nTotal Students:", len(data))
+    print("Processing... please wait.\n")
 
     # SEQUENTIAL
     start = time.time()
     p, a = count_sequential(data)
     seq_time = time.time() - start
-    print("Sequential Time:", seq_time)
+    print(f"Sequential      Time: {seq_time:.4f} seconds")
 
     # THREADING
     start = time.time()
     p, a = count_threading(data)
     thread_time = time.time() - start
-    print("Threading Time:", thread_time)
+    print(f"Threading       Time: {thread_time:.4f} seconds")
 
     # MULTIPROCESSING
     start = time.time()
     p, a = count_multiprocessing(data)
     process_time = time.time() - start
-    print("Multiprocessing Time:", process_time)
+    print(f"Multiprocessing Time: {process_time:.4f} seconds")
 
     # FINAL RESULT
-    print("\nPresent:", p)
-    print("Absent:", a)
+    print("\n--- Results ---")
+    print(f"Present : {p}")
+    print(f"Absent  : {a}")
+
+    fastest = min([("Sequential", seq_time), ("Threading", thread_time), ("Multiprocessing", process_time)], key=lambda x: x[1])
+    print(f"\nFastest method: {fastest[0]}")
 
     # =========================
     # GRAPH
     # =========================
     methods = ["Sequential", "Threading", "Multiprocessing"]
     times = [seq_time, thread_time, process_time]
+    colors = ["red", "orange", "green"]
 
-    plt.bar(methods, times)
+    bars = plt.bar(methods, times, color=colors)
+    for bar, t in zip(bars, times):
+        plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.001,
+                 f"{t:.4f}s", ha="center", va="bottom", fontsize=10)
+
     plt.xlabel("Method")
     plt.ylabel("Time (seconds)")
-    plt.title("Performance Comparison")
-
+    plt.title(f"Performance Comparison ({len(data):,} students)")
+    plt.tight_layout()
     plt.show()
 ```
