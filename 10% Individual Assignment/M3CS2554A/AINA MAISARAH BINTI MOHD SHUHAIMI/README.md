@@ -41,7 +41,7 @@ sudo apt install python3
 1. Open terminal  
 2. Navigate to file location  
 Run:
-phyton ITT440.py
+phyton ITT440_1.py
 
 ## 🎮 Program Features
 
@@ -67,19 +67,24 @@ phyton ITT440.py
 
 ## Sample Input
 
+<img width="456" height="353" alt="image" src="https://github.com/user-attachments/assets/540aa811-5834-4d86-afea-89779ac90288" />
+
 
 ## Sample Ouput
 
-<img width="499" height="682" alt="image" src="https://github.com/user-attachments/assets/89b09258-ef51-47fa-8d6f-2d025ecf5f77" />
+<img width="414" height="307" alt="image" src="https://github.com/user-attachments/assets/0a51e433-0800-4c5d-8bff-935c5cc936e4" />
+
 
 
 ## Sample Output Files
 
-<img width="441" height="244" alt="image" src="https://github.com/user-attachments/assets/68c28d8a-e930-4b2a-a6b0-fe83f2173c2e" />
+<img width="393" height="234" alt="image" src="https://github.com/user-attachments/assets/35306a9d-27a4-4404-9a3b-9ab85ba3d1c9" />
+
 
 
 ## Sample Graph 
-<img width="1155" height="716" alt="image" src="https://github.com/user-attachments/assets/f30fde48-caf2-4ed6-9a50-b635c4a8c539" />
+
+<img width="803" height="500" alt="image" src="https://github.com/user-attachments/assets/fee224c3-476e-49e2-b1a4-31b261b7261e" />
 
 
 ## Conclusion
