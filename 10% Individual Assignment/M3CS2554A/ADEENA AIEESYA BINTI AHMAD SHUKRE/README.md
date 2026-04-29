@@ -40,6 +40,7 @@ To run the Airport Baggage Handling and Sorting Simulator, the system requiremen
 ## INSTALLATION STEPS
 
 ***A. LAUNCH THE SIMULATOR***
+
 **Navigate to project folder**
 
 ```bash
@@ -53,6 +54,7 @@ python3 airport_main.py
 ```
 
 ***B. PROVIDE DESIRED INPUT***
+
 **When prompted, enter the required values, for example:**
 
 ```bash
