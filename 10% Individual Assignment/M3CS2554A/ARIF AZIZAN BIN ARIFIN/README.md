@@ -231,9 +231,7 @@ Performance Comparison:
 
 ## Screenshots
 
-```markdown
 ![Single Game Output](Screenshots/single_game_output.png)
-```
 
 ## Source Code
 
