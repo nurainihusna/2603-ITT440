@@ -31,11 +31,15 @@ The application is divided into three distinct stages: <br> <br>
 * **Export to CSV:** Save the calculated "Analysis Scores" and a snippet of the feedback to a CSV file for your reporting needs. <br> 
 # 📝 Sample Input & Output 
 **Input**  <br>
-The application expects a .txt file where each line is a single feedback string. <br>
-User are expected to run the "Generate Test Data" option before using .txt files. <br> <br>
+1. The application expects a .txt file where each line is a single feedback string. <br>
+2. User are expected to run the "Generate Test Data" option. <br> <br>
 **Output** <br>
-picture
+<img width="1920" height="1080" alt="Screenshot 2026-05-03 084826" src="https://github.com/user-attachments/assets/19a3650e-531e-4b0e-a671-99c820203e0e" />  <br>
 # 🖼️ Screenshots
-Below is the GUI for feedback analyzer: <br>
-
-
+Below is the representation of UI for feedback analyzer: 
+<img width="1920" height="1080" alt="Screenshot 2026-05-03 084700" src="https://github.com/user-attachments/assets/b1236c16-2bf3-4101-864a-d61bdb0e635b" /> <br>
+# 🏁 Conclusion
+* **Multiprocessing** offers the highest potential for performance in large-scale data pipelines by enabling true parallel execution across multiple CPU cores; however, it involves a startup "overhead cost" that is only justified when the workload is sufficiently large. <br>
+* **Sequential** execution serves as the most efficient approach for smaller datasets, as it avoids the administrative burden of inter-process communication and task distribution, outperforming parallel methods when the workload is light. <br>
+* **Threading** performs poorly for CPU-bound tasks in this project due to Python’s Global Interpreter Lock (GIL), which restricts execution to a single core and prevents true parallelism. <br> <br>
+The performance results demonstrate that choosing an execution model requires balancing task complexity against system overhead. While multiprocessing is the superior architecture for scaling to heavy, enterprise-level workloads, this project highlights that for smaller data volumes, the overhead of parallelization can exceed its benefits.
