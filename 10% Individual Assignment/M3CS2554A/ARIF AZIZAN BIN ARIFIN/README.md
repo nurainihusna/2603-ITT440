@@ -231,11 +231,17 @@ Performance Comparison:
 
 ## Screenshots
 
-![Single Game Input]
-(Screenshots/single_game_input.png)
+Single Game Input
+![Single Game Input](Screenshots/single_game_input.png)
 
-![Single Game Output]
-(Screenshots/single_game_output.png)
+Single Game Output
+![Single Game Output](Screenshots/single_game_output.png)
+
+Simulation Run
+![Simulation Run](Screenshots/simulation_run.png)
+
+Performance Report
+![Performance Report](Screenshots/performance_run.png)
 
 ## Source Code
 
