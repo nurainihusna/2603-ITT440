@@ -31,16 +31,26 @@ def run_task(category_name, data_size, disc, tx, f):
         _ = pool.starmap(calculate_price, data_stream, chunksize=5000)
     par_t = time.time() - start
 
-    f.write(f"Sample Results:\n  1. Original: RM{prices[0]:.2f} -> Final: RM{calculate_price(prices[0], disc, tx):.2f}\n")
+    f.write(f"Calculation Results:\n")
+    for i in range(10):
+        original = prices[i]
+        final = calculate_price(original, disc, tx)
+        f.write(f"  {i+1}. Original: RM{original:.2f} -> Final: RM{final:.2f}\n")
     
     return seq_t, con_t, par_t
 
 if __name__ == "__main__":
+    print("=== Discount Price Calculator ===")
+    try:
+        disc = float(input("Enter discount percentage (e.g., 50): "))
+        tx = float(input("Enter tax percentage (e.g., 6): "))
+    except ValueError:
+        print("Invalid input. Using default values (Discount: 50%, Tax: 6%)")
+        disc = 50.0
+        tx = 6.0
+
     categories = ["Top", "Bottom", "Accessories", "Footwear", "Outerwear", "Bags"]
     data_per_category = 1000000 
-    
-    disc = 50.0
-    tx = 6.0
     
     results_summary = []
 
@@ -55,7 +65,7 @@ if __name__ == "__main__":
 
     last_cat, final_seq, final_con, final_par = results_summary[-1]
     
-    methods = ["Sequential", "Threading", "Multiprocessing"]
+    methods = ["Sequential", "Concurrent", "Parallel"]
     times = [final_seq, final_con, final_par]
 
     plt.figure(figsize=(10, 6))
