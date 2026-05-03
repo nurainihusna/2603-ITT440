@@ -11,7 +11,7 @@
 
 **PREPARED FOR:** SIR SHAHADAN BIN SAAD
 
-**YOUTUBE LINK:**
+**YOUTUBE LINK:** https://youtu.be/WxdMk3FbTWE?si=fQ8cyef61xSS9wqB
 
 ## 1. Introduction
 ### 1.1 Problem Statement
@@ -97,4 +97,31 @@ The parallel approach uses ```ProcessPoolExecutor``` from ```concurrent.futures`
 - Each process runs independently with its own memory space
 - Results are collected and merged after all processes complete
 ## 4. Results and Analysis
-### 4.1 Output 
+### 4.1 Output Files Generated
+The program generates several output files:
+
+| File Name                      | Description                                      |
+|-------------------------------|--------------------------------------------------|
+| generated_numbers.csv         | Sample of 10,000 generated numbers              |
+| results_output.csv            | All 8 metrics for each approach                 |
+| performance_comparison.csv    | Execution times and speedup factors             |
+| performance_graph.png         | Bar chart visualization                         |
+
+**Generated Numbers**
+<img width="181" height="380" alt="image" src="https://github.com/user-attachments/assets/7a00c0a2-6300-44f7-80bd-3536b8d012ef" />
+
+**Result Output**
+<img width="680" height="286" alt="image" src="https://github.com/user-attachments/assets/cf857f20-8426-4224-9059-6d41cdd94d74" />
+
+**Performance Comparison**
+<img width="438" height="113" alt="image" src="https://github.com/user-attachments/assets/70fd2622-725c-4eb1-afb5-61e0982c60b5" />
+
+**Performance Graph**
+<img width="1461" height="650" alt="image" src="https://github.com/user-attachments/assets/1e2e868e-13ca-4181-ba6b-39f9351f3549" />
+
+## 6. Conclusion
+This project successfully demonstrated the differences between sequential, concurrent, and parallel processing in Python. By processing 10 million numbers and computing 8 statistical metrics, we observed how:
+
+- Multiprocessing provides the best performance for CPU-intensive tasks by utilizing multiple CPU cores
+- Threading is not suitable for CPU-bound tasks due to Python's GIL
+- Sequential processing serves as a reliable baseline for comparison
