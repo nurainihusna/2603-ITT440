@@ -48,5 +48,5 @@ ii) Concurrent Approach (Threading):
 iii) Parallel Approach (Multiprocessing):
 <img width="663" height="140" alt="Screenshot 2026-05-03 181824" src="https://github.com/user-attachments/assets/c45d28fb-a65a-4cdf-b5b2-6064797aff8b" />
 # 8. DEMOSTRATION VIDEO
-
+https://youtu.be/p0HczyRtDzY
 The video covers the dynamic input feature, the generation of 6 million price calculations, and a comparison of the three computing techniques.
